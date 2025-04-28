@@ -66,6 +66,18 @@
 			backdrop-filter:blur(2px);
 		}
 
+		.repo-link {
+			margin:.2rem 0 0;
+			font-family:"Orbitron", sans-serif;
+			font-size:1rem;
+			color:#ccefff;
+			opacity:.95;
+			padding:.2rem .8rem;
+			border:1px solid var(--primary);
+			border-radius:9999px;
+			background:rgba(84,216,255,.08);
+			backdrop-filter:blur(2px);
+		}
 
 		.table-container {
 			height: calc(100vh - 150px);
@@ -235,8 +247,9 @@
 							<p>1. Encuentra</p>
 							<p>2. Memoriza</p>
 							<p>3. Empareja</p>
+							<p className="repo-link"><strong>Repositorio: </strong><a href="https://github.com/DerNait/web-lab6">aquí</a></p>
 						</div>
-						<button className="play-btn" onClick={onStart}>Comenzar</button>
+						<button className="mt-3 play-btn" onClick={onStart}>Comenzar</button>
 					</div>
 				</div>
 			);
