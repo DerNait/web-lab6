@@ -216,12 +216,12 @@
 	<script type="text/babel">
 		const { useState, useEffect } = React;
 
-		function Header({ moves, memorizing }) {
+		function Header({ moves, completed }) {
 			return (
 				<div className="header">
 					<h1 className="m-0">Halo: Memoria</h1>
-					{memorizing && <p>Memoriza las cartas...</p>}
-					{!memorizing && <p>Movimientos: {moves}</p>}
+					{completed && <p>Juego completado</p>}
+					{!completed && <p>Movimientos: {moves}</p>}
 				</div>
 			);	
 		}
@@ -232,8 +232,9 @@
 					<div className="victory-card">
 						<h2>Halo: Memoria</h2>
 						<div className="text-light orbitron-text">
-							<p>1. Memoriza en 3 segundos</p>
-							<p>2. Encuentra y empareja</p>
+							<p>1. Encuentra</p>
+							<p>2. Memoriza</p>
+							<p>3. Empareja</p>
 						</div>
 						<button className="play-btn" onClick={onStart}>Comenzar</button>
 					</div>
@@ -310,9 +311,8 @@
 			const [cardsMatched, setCardsMatched] = useState([]);
 			const [moves, setMoves]		= useState(0);
 			const [busy, setBusy]		= useState(false);
-			const [showAll, setShowAll] = useState(true);
+			const [showAll, setShowAll] = useState(false);
 			const [ready,setReady]		= useState(false);
-			const [memorizing, setMemorizing] = useState(false);
 
 			useEffect(() => {
 				if (ready) {
@@ -347,11 +347,6 @@
 			const startGame = () => {
 				const deck = [...uniqueVals, ...uniqueVals].sort(() => Math.random()-0.5);
 				setCards(deck);
-				setMemorizing(true);
-				setTimeout(() => {
-					setShowAll(false)
-					setMemorizing(false);
-				}, 3000);
 			}
 
 			const resetTurn = () => {
@@ -362,7 +357,6 @@
 			const resetGame = () => {
 				setCardsMatched([]);
 				setMoves(0);
-				setShowAll(true);
 
 				startGame();
 			};
@@ -376,7 +370,7 @@
 					{
 						ready && (
 							<div>
-								<Header moves={moves} memorizing={memorizing}/>
+								<Header moves={moves} completed={won}/>
 								<Table>
 									<div className="w-100 text-center">
 										{won && <VictoryBanner moves={moves} onPlayAgain={resetGame}/>}
